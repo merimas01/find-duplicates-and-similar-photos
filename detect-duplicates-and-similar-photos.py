@@ -79,19 +79,18 @@ for folder, sub_folder, files in walker:
                 kp_number = match_images(img)
                 # print(name, len(good), kp_number, kp1_number)
 
-                if (
+                if len(good) == kp_number and kp_number == kp1_number: 
+                   # images are duplicates
+                    counter_duplicate_photos += 1
+                    os.remove(filepath)
+                elif (
                     len(good) > 20
                     and len(good) < 1000
                     and (kp_number != kp1_number or kp_number == kp1_number)
-                ):
-                    # images are similar
+                ):     
+                     # images are similar
                     counter_similar_photos += 1
                     similar_images[filepath] = img
-                elif len(good) == kp_number and kp_number == kp1_number:
-                    # images are duplicates
-                    counter_duplicate_photos += 1
-                    os.remove(filepath)
-
         # refresh the value
         good = []
 
